@@ -10,7 +10,7 @@
  * we'd need to save current size and pointers for copying and removing elements
  *
  * any failure must return null or fail per case.
- *
+ *m
  */
 typedef struct AdptArray_ {
     int size;
@@ -50,7 +50,9 @@ Result SetAdptArrayAt(PAdptArray arr, int index, PElement elem) {
 
     if (index > arr->size) {
         int new_size = index + 1; // increase size to index (where it contains it)
-        arr = (PAdptArray) realloc(arr, sizeof(PAdptArray) + sizeof(PElement) * (new_size));
+        // arr = (PAdptArray) realloc(arr, sizeof(PAdptArray) + sizeof(PElement) * (new_size)); 
+        //ig when i realloc elems it also reallocs the arr so no need for it, also it bugged on 2nd increase
+        
         arr->elems = (PElement *) realloc(arr->elems, sizeof(PElement) * (new_size));
         //init the new places in the array to be null
         for(int i = arr->size; i < new_size; i++){ //size is last-index + 1
